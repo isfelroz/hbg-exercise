@@ -1,0 +1,14 @@
+# Global
+node_modules/
+.env
+vendor/
+public/storage
+storage/*.key
+
+# Laravel
+backend/vendor/
+backend/.env
+
+# Vue
+frontend/node_modules/
+frontend/dist/
