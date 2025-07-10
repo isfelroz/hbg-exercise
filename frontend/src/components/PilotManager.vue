@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getPilots, createPilot } from '@/services/api';
+import { getPilots, createPilot, deletePilot } from '@/services/api';
 import PilotForm from './PilotForm.vue';
 
 const pilots = ref([]);
@@ -23,6 +23,15 @@ const addPilot = async (pilotData) => {
   }
 };
 
+const removePilot = async (pilotId) => {
+  try {
+    await deletePilot(pilotId);
+    await fetchPilots(currentPage.value);
+  } catch (error) {
+    console.error('Error removing pilot:', error);
+  }
+};
+
 onMounted(fetchPilots);
 </script>
 <template>
@@ -35,6 +44,14 @@ onMounted(fetchPilots);
           <p>Base: {{ pilot.base.name }}</p>
           <p>Created: {{ new Date(pilot.created_at).toLocaleDateString() }}</p>
           <p>Created: {{ new Date(pilot.updated_at).toLocaleDateString() }}</p>
+          <div class="flex justify-center">
+            <button
+              @click="removePilot(pilot.id)"
+              class="mt-2 text-red-500 hover:text-red-700 hover:underline cursor-pointer mx-auto"
+            >
+              Remove
+            </button>
+          </div>
         </div>
       </div>
       <div class="flex justify-end gap-4 py-4">

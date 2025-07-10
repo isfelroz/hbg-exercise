@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PilotController;
 use App\Http\Controllers\BaseController;
+use App\Models\Pilot;
 
 Route::get('/pilots', function (Request $request) {
     $controller = new PilotController();

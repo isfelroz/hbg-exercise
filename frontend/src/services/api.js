@@ -29,6 +29,19 @@ export const createPilot = async (pilotData) => {
   }
 };
 
+export const deletePilot = async (pilotId) => {
+  try {
+    const response = await api.delete(`/pilots/${pilotId}`);
+    if (response.status !== 200) {
+      throw new Error(`Error deleting pilot: ${response.statusText}`);
+    }
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting pilot:', error);
+    return null;
+  }
+};
+
 export const getBases = async () => {
   try {
     const response = await api.get('/bases');
