@@ -10,7 +10,7 @@ class PilotController extends Controller
 {
     public function index()
     {
-        $pilots = Pilot::with('base')->paginate(10);
+        $pilots = Pilot::with('base')->paginate(12);
         return response()->json($pilots);
     }
 }
