@@ -2,11 +2,19 @@
 import { ref, onMounted } from 'vue';
 import { getBases } from '@/services/api';
 
+const emit = defineEmits(['addpilot']);
 const bases = ref([]);
+const submitted = ref(false);
 
 const fetchBases = async () => {
   const res = await getBases();
   bases.value = res;
+};
+
+const submitHandler = (formData) => {
+  emit('addpilot', formData);
+  console.log('Form submitted with data:', formData);
+  submitted.value = true;
 };
 onMounted(fetchBases);
 </script>
@@ -73,7 +81,7 @@ onMounted(fetchBases);
       </div>
     </div>
   </FormKit>
-  <div v-if="submitted">
-    <h2 class="text-xl text-green-500">Submission successful!</h2>
+  <div class="py-2" v-if="submitted">
+    <p class="text-green-500">Le pilot a été créé</p>
   </div>
 </template>

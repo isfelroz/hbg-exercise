@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getPilots } from '@/services/api';
+import { getPilots, createPilot } from '@/services/api';
 import PilotForm from './PilotForm.vue';
 
 const pilots = ref([]);
@@ -13,6 +13,16 @@ const fetchPilots = async (page = 1) => {
   totalPages.value = res.last_page;
   currentPage.value = res.current_page;
 };
+
+const addPilot = async (pilotData) => {
+  try {
+    await createPilot(pilotData);
+    await fetchPilots(currentPage.value);
+  } catch (error) {
+    console.error('Error adding pilot:', error);
+  }
+};
+
 onMounted(fetchPilots);
 </script>
 <template>
@@ -43,7 +53,7 @@ onMounted(fetchPilots);
       </div>
     </div>
     <div>
-      <PilotForm />
+      <PilotForm @addpilot="addPilot" />
     </div>
   </div>
 </template>

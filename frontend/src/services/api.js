@@ -16,11 +16,22 @@ export const getPilots = async (page) => {
   }
 };
 
+export const createPilot = async (pilotData) => {
+  try {
+    const response = await api.post('/pilots', pilotData);
+    if (response.status !== 200) {
+      throw new Error(`Error creating pilot: ${response.statusText}`);
+    }
+    return response.data;
+  } catch (error) {
+    console.error('Error creating pilot:', error);
+    return null;
+  }
+};
+
 export const getBases = async () => {
   try {
     const response = await api.get('/bases');
-    console.log(response);
-    console.log('Fetched bases:', response);
     if (response.status !== 200) {
       throw new Error(`Error fetching bases: ${response.statusText}`);
     }
