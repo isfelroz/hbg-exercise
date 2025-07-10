@@ -3,13 +3,13 @@ export const api = axios.create({
   baseURL: 'http://localhost:8000/api',
 });
 
-export const getPilots = async () => {
+export const getPilots = async (page) => {
   try {
-    const response = await api.get('/pilots');
+    const response = await api.get('/pilots?page=' + page);
     if (response.status !== 200) {
       throw new Error(`Error fetching pilots: ${response.statusText}`);
     }
-    return response.data.data;
+    return response.data;
   } catch (error) {
     console.error('Error fetching pilots:', error);
     return [];

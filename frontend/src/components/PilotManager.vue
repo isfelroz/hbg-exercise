@@ -4,10 +4,14 @@ import { getPilots } from '@/services/api';
 import PilotForm from './PilotForm.vue';
 
 const pilots = ref([]);
+const currentPage = ref(1);
+const totalPages = ref(0);
 
-const fetchPilots = async () => {
-  const res = await getPilots();
-  pilots.value = res;
+const fetchPilots = async (page = 1) => {
+  const res = await getPilots(page);
+  pilots.value = res.data;
+  totalPages.value = res.last_page;
+  currentPage.value = res.current_page;
 };
 onMounted(fetchPilots);
 </script>
@@ -22,6 +26,20 @@ onMounted(fetchPilots);
           <p>Created: {{ new Date(pilot.created_at).toLocaleDateString() }}</p>
           <p>Created: {{ new Date(pilot.updated_at).toLocaleDateString() }}</p>
         </div>
+      </div>
+      <div class="flex justify-end gap-4 py-4">
+        <button
+          v-for="page in totalPages"
+          :key="page"
+          @click="fetchPilots(page)"
+          :class="{
+            'bg-blue-500 text-white': currentPage === page,
+            'bg-gray-200 text-gray-700': currentPage !== page,
+          }"
+          class="px-4 py-2 rounded"
+        >
+          {{ page }}
+        </button>
       </div>
     </div>
     <div>
