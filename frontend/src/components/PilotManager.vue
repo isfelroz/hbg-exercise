@@ -43,7 +43,6 @@ onMounted(fetchPilots);
           <h2 class="text-xl font-semibold">{{ pilot.name }}</h2>
           <p>Base: {{ pilot.base.name }}</p>
           <p>Created: {{ new Date(pilot.created_at).toLocaleDateString() }}</p>
-          <p>Created: {{ new Date(pilot.updated_at).toLocaleDateString() }}</p>
           <div class="flex justify-center">
             <button
               @click="removePilot(pilot.id)"
