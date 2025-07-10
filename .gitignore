@@ -12,3 +12,4 @@ backend/.env
 # Vue
 frontend/node_modules/
 frontend/dist/
+frontend/pnpm-lock.yaml
